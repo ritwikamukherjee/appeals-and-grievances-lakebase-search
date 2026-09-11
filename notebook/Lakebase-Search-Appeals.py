@@ -59,6 +59,34 @@
 
 # COMMAND ----------
 
+# MAGIC %md-sandbox
+# MAGIC <div class="cw">
+# MAGIC <style>
+# MAGIC .cw { font-family: sans-serif; max-width: 1150px; margin: 0 auto; color:#0b2026; }
+# MAGIC .cw * { box-sizing: border-box; }
+# MAGIC .h { font-size:20pt; font-weight:700; margin:0 0 14px; }
+# MAGIC .flow-grid { display:grid; grid-template-columns:1fr auto 1fr auto 1fr auto 1fr auto 1fr; gap:0; align-items:stretch; }
+# MAGIC .flow-step { background:#F9F7F4; border:3px solid var(--accent,#4299E0); border-radius:10px; padding:16px 12px; box-shadow:0 2px 8px rgba(27,49,57,0.08); text-align:center; min-width:0; }
+# MAGIC .flow-num { font-size:26pt; font-weight:800; color:var(--accent,#4299E0); line-height:1; margin-bottom:8px; }
+# MAGIC .flow-label { font-size:14pt; font-weight:600; color:#0b2026; line-height:1.35; }
+# MAGIC .flow-arrow { display:flex; align-items:center; justify-content:center; color:#618794; font-size:22pt; line-height:1; }
+# MAGIC </style>
+# MAGIC <div class="h">The pipeline at a glance</div>
+# MAGIC <div class="flow-grid">
+# MAGIC   <div class="flow-step" style="--accent:#4299E0;"><div class="flow-num">1</div><div class="flow-label">Load appeals<br>into Lakebase</div></div>
+# MAGIC   <div class="flow-arrow">&rarr;</div>
+# MAGIC   <div class="flow-step" style="--accent:#00A972;"><div class="flow-num">2</div><div class="flow-label">Embed narratives<br>(gte-large-en)</div></div>
+# MAGIC   <div class="flow-arrow">&rarr;</div>
+# MAGIC   <div class="flow-step" style="--accent:#FFAB00;"><div class="flow-num">3</div><div class="flow-label">Build vector +<br>BM25 indexes</div></div>
+# MAGIC   <div class="flow-arrow">&rarr;</div>
+# MAGIC   <div class="flow-step" style="--accent:#FF5F46;"><div class="flow-num">4</div><div class="flow-label">Search three ways<br>in one query</div></div>
+# MAGIC   <div class="flow-arrow">&rarr;</div>
+# MAGIC   <div class="flow-step" style="--accent:#1B5162;"><div class="flow-num">5</div><div class="flow-label">Brief the<br>member services rep</div></div>
+# MAGIC </div>
+# MAGIC </div>
+
+# COMMAND ----------
+
 # MAGIC %md
 # MAGIC ### Setup: connect to Lakebase and load the demo helpers
 # MAGIC Run this once. It connects to the `healthplan-appeals` Lakebase project (production
@@ -413,3 +441,93 @@ print(resp["choices"][0]["message"]["content"])
 # MAGIC   </ul>
 # MAGIC </div>
 # MAGIC </div>
+
+# COMMAND ----------
+
+# MAGIC %md-sandbox
+# MAGIC This knowledge check is **ungraded**, a quick self-check on the three search modes. Pick an answer and click **Check**.
+# MAGIC
+# MAGIC <style>
+# MAGIC .qz-shell{display:flex;border:1px solid #DCE0E2;border-radius:12px;overflow:hidden;min-height:360px;font-family:sans-serif}
+# MAGIC .qz-nav{flex:0 0 200px;background:#F8F9FC;border-right:1px solid #DCE0E2;padding:12px 0;display:flex;flex-direction:column;justify-content:space-between}
+# MAGIC .qz-nav-list{display:flex;flex-direction:column;gap:2px}
+# MAGIC .qz-nav-item{padding:10px 16px;font-size:14pt;font-weight:500;color:#5E7077;cursor:pointer;user-select:none;display:flex;align-items:center;gap:10px;transition:background .12s,color .12s}
+# MAGIC .qz-nav-item:hover{background:#EEEDE9;color:#0b2026}
+# MAGIC .qz-nav-item.active{background:#F8F9FC;color:#0b2026;border-right:3px solid #4299E0}
+# MAGIC .qz-dot{width:10px;height:10px;border-radius:50%;border:2px solid #C2C2C2;flex-shrink:0;transition:background .2s,border-color .2s}
+# MAGIC .qz-dot.answered{border-color:#4299E0;background:#4299E0}
+# MAGIC .qz-dot.correct{border-color:#00A972;background:#00A972}
+# MAGIC .qz-dot.wrong{border-color:#FF5F46;background:#FF5F46}
+# MAGIC .qz-main{flex:1;padding:24px 28px;display:flex;flex-direction:column;justify-content:center}
+# MAGIC .qz-q{font-size:14pt;font-weight:500;color:#0b2026;margin-bottom:16px;line-height:1.5}
+# MAGIC .qz-q code{background:#EEEDE9;padding:1px 5px;border-radius:4px;font-size:14pt}
+# MAGIC .qz-opts{display:flex;flex-direction:column;gap:10px}
+# MAGIC .qz-opt{display:flex;align-items:center;gap:12px;padding:12px 16px;border-radius:8px;border:1px solid #DCE0E2;background:#fff;cursor:pointer;font-size:14pt;color:#0b2026;transition:background .12s,border-color .12s;user-select:none}
+# MAGIC .qz-opt:hover{background:#EEEDE9;border-color:#C2C2C2}
+# MAGIC .qz-opt.selected{border-color:#4299E0;background:#F8F9FC;font-weight:500}
+# MAGIC .qz-opt.right{border-color:#00A972;background:rgba(0,169,114,0.10);color:#00A972;font-weight:500}
+# MAGIC .qz-opt.wrong-pick{border-color:#FF5F46;background:rgba(255,95,70,0.10);color:#FF5F46}
+# MAGIC .qz-opt.locked{pointer-events:none}
+# MAGIC .qz-radio{width:18px;height:18px;border-radius:50%;border:2px solid #C2C2C2;flex-shrink:0;display:flex;align-items:center;justify-content:center}
+# MAGIC .qz-opt.selected .qz-radio{border-color:#4299E0;background:#4299E0}
+# MAGIC .qz-opt.right .qz-radio{border-color:#00A972;background:#00A972}
+# MAGIC .qz-opt.wrong-pick .qz-radio{border-color:#FF5F46;background:#FF5F46}
+# MAGIC .qz-radio::after{content:'';width:8px;height:8px;border-radius:50%;background:#fff;display:none}
+# MAGIC .qz-opt.selected .qz-radio::after,.qz-opt.right .qz-radio::after,.qz-opt.wrong-pick .qz-radio::after{display:block}
+# MAGIC .qz-fb{margin-top:14px;padding:12px 16px;border-radius:8px;font-size:14pt;line-height:1.5;display:none}
+# MAGIC .qz-fb.show{display:block}
+# MAGIC .qz-fb.ok{background:rgba(0,169,114,0.10);color:#00A972}
+# MAGIC .qz-fb.no{background:rgba(255,95,70,0.10);color:#98102A}
+# MAGIC .qz-grade-btn{padding:10px 24px;border:none;border-radius:8px;font-size:14pt;font-weight:600;cursor:pointer;background:#4299E0;color:#fff}
+# MAGIC .qz-grade-btn:disabled{opacity:.35;cursor:default}
+# MAGIC </style>
+# MAGIC
+# MAGIC <div class="qz-shell">
+# MAGIC   <div class="qz-nav"><div class="qz-nav-list" id="qz-nav"></div><div></div></div>
+# MAGIC   <div class="qz-main" id="qz-main"></div>
+# MAGIC </div>
+# MAGIC
+# MAGIC <script>
+# MAGIC var QZ=[
+# MAGIC   {q:'A rep searches for the exact denial code <code>CO-197</code>, which carries little meaning to embed. Which mode reliably surfaces the cases with that code?',
+# MAGIC    opts:['Vector (semantic)','BM25 (keyword)','Neither can','Only a separate vector database'],
+# MAGIC    ans:1, fb:'BM25 matches exact tokens, so a code like CO-197 is found precisely. Vector embeds meaning, and a bare code has little meaning, so it gets diluted.'},
+# MAGIC   {q:'How does hybrid search combine the vector and keyword results?',
+# MAGIC    opts:['It averages the two raw scores','It runs vector first, then filters by keyword','Reciprocal rank fusion of the two rankings','It returns whichever set is larger'],
+# MAGIC    ans:2, fb:'Hybrid uses reciprocal rank fusion: 1/(60+rank_vector) + 1/(60+rank_keyword), rewarding results that rank well in both lists.'},
+# MAGIC   {q:'Where do the embeddings and the BM25 index live in this demo?',
+# MAGIC    opts:['In a separate managed vector service','In the Delta table only','Inside the Lakebase Postgres table, next to the data','In the app server memory'],
+# MAGIC    ans:2, fb:'That is the whole point of Lakebase Search: embeddings and the BM25 index sit in the operational Postgres table, so search runs next to the data with plain SQL and no separate service.'}
+# MAGIC ];
+# MAGIC var qzPick=new Array(QZ.length).fill(-1), qzCur=0, qzChecked=new Array(QZ.length).fill(false);
+# MAGIC function qzBuildNav(){
+# MAGIC   var nav=document.getElementById('qz-nav'); nav.innerHTML='';
+# MAGIC   QZ.forEach(function(q,i){
+# MAGIC     var item=document.createElement('div');
+# MAGIC     item.className='qz-nav-item'+(i===qzCur?' active':'');
+# MAGIC     var dc='qz-dot';
+# MAGIC     if(qzChecked[i]){dc='qz-dot '+(qzPick[i]===q.ans?'correct':'wrong');}
+# MAGIC     else if(qzPick[i]>=0){dc='qz-dot answered';}
+# MAGIC     item.innerHTML='<div class="'+dc+'"></div>Question '+(i+1);
+# MAGIC     item.onclick=function(){qzCur=i;qzBuildNav();qzShowQ();};
+# MAGIC     nav.appendChild(item);
+# MAGIC   });
+# MAGIC }
+# MAGIC function qzShowQ(){
+# MAGIC   var q=QZ[qzCur], main=document.getElementById('qz-main');
+# MAGIC   var html='<div class="qz-q">'+(qzCur+1)+'. '+q.q+'</div><div class="qz-opts">';
+# MAGIC   q.opts.forEach(function(o,oi){
+# MAGIC     var cls='qz-opt';
+# MAGIC     if(qzChecked[qzCur]){cls+=' locked'; if(oi===q.ans) cls+=' right'; else if(oi===qzPick[qzCur]) cls+=' wrong-pick';}
+# MAGIC     else if(oi===qzPick[qzCur]) cls+=' selected';
+# MAGIC     html+='<div class="'+cls+'" onclick="qzSelect('+oi+')"><div class="qz-radio"></div><div>'+o+'</div></div>';
+# MAGIC   });
+# MAGIC   html+='</div>';
+# MAGIC   if(qzChecked[qzCur]){var ok=qzPick[qzCur]===q.ans; html+='<div class="qz-fb show '+(ok?'ok':'no')+'">'+(ok?'&#10003; Correct. ':'&#10007; Not quite. ')+q.fb+'</div>';}
+# MAGIC   else {html+='<div style="margin-top:14px"><button class="qz-grade-btn" '+(qzPick[qzCur]<0?'disabled':'')+' onclick="qzCheck()">Check</button></div>';}
+# MAGIC   main.innerHTML=html;
+# MAGIC }
+# MAGIC function qzSelect(oi){ if(qzChecked[qzCur]) return; qzPick[qzCur]=oi; qzBuildNav(); qzShowQ(); }
+# MAGIC function qzCheck(){ qzChecked[qzCur]=true; qzBuildNav(); qzShowQ(); }
+# MAGIC qzBuildNav(); qzShowQ();
+# MAGIC </script>

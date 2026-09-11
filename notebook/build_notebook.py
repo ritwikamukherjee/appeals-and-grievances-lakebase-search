@@ -88,6 +88,37 @@ md(r"""
 """)
 
 # ===========================================================================
+# PIPELINE AT A GLANCE (step-flow)
+# ===========================================================================
+md(r"""
+%md-sandbox
+<div class="cw">
+<style>
+.cw { font-family: sans-serif; max-width: 1150px; margin: 0 auto; color:#0b2026; }
+.cw * { box-sizing: border-box; }
+.h { font-size:20pt; font-weight:700; margin:0 0 14px; }
+.flow-grid { display:grid; grid-template-columns:1fr auto 1fr auto 1fr auto 1fr auto 1fr; gap:0; align-items:stretch; }
+.flow-step { background:#F9F7F4; border:3px solid var(--accent,#4299E0); border-radius:10px; padding:16px 12px; box-shadow:0 2px 8px rgba(27,49,57,0.08); text-align:center; min-width:0; }
+.flow-num { font-size:26pt; font-weight:800; color:var(--accent,#4299E0); line-height:1; margin-bottom:8px; }
+.flow-label { font-size:14pt; font-weight:600; color:#0b2026; line-height:1.35; }
+.flow-arrow { display:flex; align-items:center; justify-content:center; color:#618794; font-size:22pt; line-height:1; }
+</style>
+<div class="h">The pipeline at a glance</div>
+<div class="flow-grid">
+  <div class="flow-step" style="--accent:#4299E0;"><div class="flow-num">1</div><div class="flow-label">Load appeals<br>into Lakebase</div></div>
+  <div class="flow-arrow">&rarr;</div>
+  <div class="flow-step" style="--accent:#00A972;"><div class="flow-num">2</div><div class="flow-label">Embed narratives<br>(gte-large-en)</div></div>
+  <div class="flow-arrow">&rarr;</div>
+  <div class="flow-step" style="--accent:#FFAB00;"><div class="flow-num">3</div><div class="flow-label">Build vector +<br>BM25 indexes</div></div>
+  <div class="flow-arrow">&rarr;</div>
+  <div class="flow-step" style="--accent:#FF5F46;"><div class="flow-num">4</div><div class="flow-label">Search three ways<br>in one query</div></div>
+  <div class="flow-arrow">&rarr;</div>
+  <div class="flow-step" style="--accent:#1B5162;"><div class="flow-num">5</div><div class="flow-label">Brief the<br>member services rep</div></div>
+</div>
+</div>
+""")
+
+# ===========================================================================
 # SETUP
 # ===========================================================================
 md(r"""
@@ -467,6 +498,100 @@ md(r"""
   </ul>
 </div>
 </div>
+""")
+
+
+# ===========================================================================
+# KNOWLEDGE CHECK
+# ===========================================================================
+md(r"""
+%md-sandbox
+This knowledge check is **ungraded**, a quick self-check on the three search modes. Pick an answer and click **Check**.
+
+<style>
+.qz-shell{display:flex;border:1px solid #DCE0E2;border-radius:12px;overflow:hidden;min-height:360px;font-family:sans-serif}
+.qz-nav{flex:0 0 200px;background:#F8F9FC;border-right:1px solid #DCE0E2;padding:12px 0;display:flex;flex-direction:column;justify-content:space-between}
+.qz-nav-list{display:flex;flex-direction:column;gap:2px}
+.qz-nav-item{padding:10px 16px;font-size:14pt;font-weight:500;color:#5E7077;cursor:pointer;user-select:none;display:flex;align-items:center;gap:10px;transition:background .12s,color .12s}
+.qz-nav-item:hover{background:#EEEDE9;color:#0b2026}
+.qz-nav-item.active{background:#F8F9FC;color:#0b2026;border-right:3px solid #4299E0}
+.qz-dot{width:10px;height:10px;border-radius:50%;border:2px solid #C2C2C2;flex-shrink:0;transition:background .2s,border-color .2s}
+.qz-dot.answered{border-color:#4299E0;background:#4299E0}
+.qz-dot.correct{border-color:#00A972;background:#00A972}
+.qz-dot.wrong{border-color:#FF5F46;background:#FF5F46}
+.qz-main{flex:1;padding:24px 28px;display:flex;flex-direction:column;justify-content:center}
+.qz-q{font-size:14pt;font-weight:500;color:#0b2026;margin-bottom:16px;line-height:1.5}
+.qz-q code{background:#EEEDE9;padding:1px 5px;border-radius:4px;font-size:14pt}
+.qz-opts{display:flex;flex-direction:column;gap:10px}
+.qz-opt{display:flex;align-items:center;gap:12px;padding:12px 16px;border-radius:8px;border:1px solid #DCE0E2;background:#fff;cursor:pointer;font-size:14pt;color:#0b2026;transition:background .12s,border-color .12s;user-select:none}
+.qz-opt:hover{background:#EEEDE9;border-color:#C2C2C2}
+.qz-opt.selected{border-color:#4299E0;background:#F8F9FC;font-weight:500}
+.qz-opt.right{border-color:#00A972;background:rgba(0,169,114,0.10);color:#00A972;font-weight:500}
+.qz-opt.wrong-pick{border-color:#FF5F46;background:rgba(255,95,70,0.10);color:#FF5F46}
+.qz-opt.locked{pointer-events:none}
+.qz-radio{width:18px;height:18px;border-radius:50%;border:2px solid #C2C2C2;flex-shrink:0;display:flex;align-items:center;justify-content:center}
+.qz-opt.selected .qz-radio{border-color:#4299E0;background:#4299E0}
+.qz-opt.right .qz-radio{border-color:#00A972;background:#00A972}
+.qz-opt.wrong-pick .qz-radio{border-color:#FF5F46;background:#FF5F46}
+.qz-radio::after{content:'';width:8px;height:8px;border-radius:50%;background:#fff;display:none}
+.qz-opt.selected .qz-radio::after,.qz-opt.right .qz-radio::after,.qz-opt.wrong-pick .qz-radio::after{display:block}
+.qz-fb{margin-top:14px;padding:12px 16px;border-radius:8px;font-size:14pt;line-height:1.5;display:none}
+.qz-fb.show{display:block}
+.qz-fb.ok{background:rgba(0,169,114,0.10);color:#00A972}
+.qz-fb.no{background:rgba(255,95,70,0.10);color:#98102A}
+.qz-grade-btn{padding:10px 24px;border:none;border-radius:8px;font-size:14pt;font-weight:600;cursor:pointer;background:#4299E0;color:#fff}
+.qz-grade-btn:disabled{opacity:.35;cursor:default}
+</style>
+
+<div class="qz-shell">
+  <div class="qz-nav"><div class="qz-nav-list" id="qz-nav"></div><div></div></div>
+  <div class="qz-main" id="qz-main"></div>
+</div>
+
+<script>
+var QZ=[
+  {q:'A rep searches for the exact denial code <code>CO-197</code>, which carries little meaning to embed. Which mode reliably surfaces the cases with that code?',
+   opts:['Vector (semantic)','BM25 (keyword)','Neither can','Only a separate vector database'],
+   ans:1, fb:'BM25 matches exact tokens, so a code like CO-197 is found precisely. Vector embeds meaning, and a bare code has little meaning, so it gets diluted.'},
+  {q:'How does hybrid search combine the vector and keyword results?',
+   opts:['It averages the two raw scores','It runs vector first, then filters by keyword','Reciprocal rank fusion of the two rankings','It returns whichever set is larger'],
+   ans:2, fb:'Hybrid uses reciprocal rank fusion: 1/(60+rank_vector) + 1/(60+rank_keyword), rewarding results that rank well in both lists.'},
+  {q:'Where do the embeddings and the BM25 index live in this demo?',
+   opts:['In a separate managed vector service','In the Delta table only','Inside the Lakebase Postgres table, next to the data','In the app server memory'],
+   ans:2, fb:'That is the whole point of Lakebase Search: embeddings and the BM25 index sit in the operational Postgres table, so search runs next to the data with plain SQL and no separate service.'}
+];
+var qzPick=new Array(QZ.length).fill(-1), qzCur=0, qzChecked=new Array(QZ.length).fill(false);
+function qzBuildNav(){
+  var nav=document.getElementById('qz-nav'); nav.innerHTML='';
+  QZ.forEach(function(q,i){
+    var item=document.createElement('div');
+    item.className='qz-nav-item'+(i===qzCur?' active':'');
+    var dc='qz-dot';
+    if(qzChecked[i]){dc='qz-dot '+(qzPick[i]===q.ans?'correct':'wrong');}
+    else if(qzPick[i]>=0){dc='qz-dot answered';}
+    item.innerHTML='<div class="'+dc+'"></div>Question '+(i+1);
+    item.onclick=function(){qzCur=i;qzBuildNav();qzShowQ();};
+    nav.appendChild(item);
+  });
+}
+function qzShowQ(){
+  var q=QZ[qzCur], main=document.getElementById('qz-main');
+  var html='<div class="qz-q">'+(qzCur+1)+'. '+q.q+'</div><div class="qz-opts">';
+  q.opts.forEach(function(o,oi){
+    var cls='qz-opt';
+    if(qzChecked[qzCur]){cls+=' locked'; if(oi===q.ans) cls+=' right'; else if(oi===qzPick[qzCur]) cls+=' wrong-pick';}
+    else if(oi===qzPick[qzCur]) cls+=' selected';
+    html+='<div class="'+cls+'" onclick="qzSelect('+oi+')"><div class="qz-radio"></div><div>'+o+'</div></div>';
+  });
+  html+='</div>';
+  if(qzChecked[qzCur]){var ok=qzPick[qzCur]===q.ans; html+='<div class="qz-fb show '+(ok?'ok':'no')+'">'+(ok?'&#10003; Correct. ':'&#10007; Not quite. ')+q.fb+'</div>';}
+  else {html+='<div style="margin-top:14px"><button class="qz-grade-btn" '+(qzPick[qzCur]<0?'disabled':'')+' onclick="qzCheck()">Check</button></div>';}
+  main.innerHTML=html;
+}
+function qzSelect(oi){ if(qzChecked[qzCur]) return; qzPick[qzCur]=oi; qzBuildNav(); qzShowQ(); }
+function qzCheck(){ qzChecked[qzCur]=true; qzBuildNav(); qzShowQ(); }
+qzBuildNav(); qzShowQ();
+</script>
 """)
 
 

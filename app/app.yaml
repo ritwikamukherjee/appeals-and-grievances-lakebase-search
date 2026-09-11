@@ -1,0 +1,10 @@
+command: ["streamlit", "run", "streamlit_app.py", "--server.port", "8080", "--server.address", "0.0.0.0"]
+env:
+  - name: LAKEBASE_PROJECT
+    value: "healthplan-appeals"
+  - name: LAKEBASE_BRANCH
+    value: "production"
+  - name: EMBEDDING_MODEL
+    value: "databricks-gte-large-en"
+  - name: PGUSER
+    value: "YOUR_APP_SP_CLIENT_ID"

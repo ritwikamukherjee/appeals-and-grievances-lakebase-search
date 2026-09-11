@@ -1,0 +1,24 @@
+<!doctype html><html><head><meta charset='utf-8'><style>html,body{background:#fff;margin:0;}.stage{width:1280px;min-height:720px;box-sizing:border-box;padding:56px;display:flex;flex-direction:column;align-items:center;justify-content:center;}.stage>*{width:100%;}</style></head><body><div class='stage'>
+<div class="cw">
+<style>
+.cw { font-family:sans-serif; max-width:1100px; margin:0 auto; color:#0b2026; }
+.ds-row { display:flex; gap:24px; align-items:stretch; flex-wrap:wrap; margin-top:6px; }
+.ds-row > * { flex:1; min-width:240px; }
+.ds-card { background:#F9F7F4; border-radius:8px; box-shadow:0 2px 8px rgba(27,49,57,0.06); padding:22px; border-top:8px solid var(--accent,#4299E0); }
+.blue{--accent:#4299E0;} .green{--accent:#00A972;} .amber{--accent:#FFAB00;}
+.ds-card-title { font-size:18pt; font-weight:700; margin:0 0 8px; }
+.ds-card ul { margin:8px 0 0; padding-left:20px; font-size:14pt; line-height:1.55; }
+.ds-card li { margin-bottom:10px; }
+.h { font-size:20pt; font-weight:700; margin:0 0 6px; }
+</style>
+<div class="h">What Lakebase Search adds on top of pgvector</div>
+<div class="ds-row">
+  <div class="ds-card blue"><div class="ds-card-title">lakebase_ann (vector)</div>
+    <ul><li>IVF partitioning + RaBitQ quantization</li><li>Storage-backed, built for scale-to-zero and tiered storage</li><li>pgvector-compatible: same <code>vector</code> types and <code>&lt;=&gt;</code> operator</li></ul></div>
+  <div class="ds-card green"><div class="ds-card-title">lakebase_bm25 (keyword)</div>
+    <ul><li>True BM25 relevance ranking, not <code>ts_rank</code></li><li>Block-Max WAND top-K pushdown</li><li>Query via <code>&lt;@&gt;</code> + <code>to_bm25query(...)</code></li></ul></div>
+  <div class="ds-card amber"><div class="ds-card-title">Hybrid</div>
+    <ul><li>Reciprocal rank fusion in plain SQL</li><li>Runs inside the OLTP database &mdash; joins, filters, transactions all still apply</li><li>No separate search service, no data copy</li></ul></div>
+</div>
+</div>
+</div></body></html>

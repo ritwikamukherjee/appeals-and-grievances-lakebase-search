@@ -1,0 +1,11 @@
+# python
+__pycache__/
+*.pyc
+.venv/
+# node / build output
+node_modules/
+frontend/dist/
+# databricks app scaffolding
+.databricks/
+# os
+.DS_Store

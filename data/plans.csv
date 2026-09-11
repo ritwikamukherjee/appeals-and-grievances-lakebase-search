@@ -1,0 +1,11 @@
+plan_id,plan_name,line_of_business,state,region
+PLN-01,BluePeak Health,Medicare Advantage,WA,Pacific Northwest
+PLN-02,Cascade Care,Medicaid,OR,Pacific Northwest
+PLN-03,Evergreen Health Plan,Commercial,CA,West
+PLN-04,Summit Advantage,Medicare Advantage,CO,Mountain
+PLN-05,Harbor Health,ACA Marketplace,TX,South
+PLN-06,Lakeshore Medicaid,Medicaid,IL,Midwest
+PLN-07,Keystone Care,Commercial,PA,Northeast
+PLN-08,Sunbelt D-SNP,D-SNP,FL,South
+PLN-09,Gateway Health Plan,ACA Marketplace,MO,Midwest
+PLN-10,Liberty Advantage,Medicare Advantage,NY,Northeast

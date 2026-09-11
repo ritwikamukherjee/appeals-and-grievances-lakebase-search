@@ -1,0 +1,36 @@
+<!doctype html><html><head><meta charset='utf-8'><style>html,body{background:#fff;margin:0;}.stage{width:1280px;min-height:720px;box-sizing:border-box;padding:56px;display:flex;flex-direction:column;align-items:center;justify-content:center;}.stage>*{width:100%;}</style></head><body><div class='stage'>
+<div class="cw">
+<style>
+.cw { font-family: sans-serif; max-width: 1100px; margin: 0 auto; color:#0b2026; }
+.cw * { box-sizing: border-box; }
+.ds-row { display:flex; gap:24px; align-items:stretch; flex-wrap:wrap; margin-top:6px; }
+.ds-row > * { flex:1; min-width:240px; }
+.ds-card { background:#F9F7F4; border-radius:8px; box-shadow:0 2px 8px rgba(27,49,57,0.06); padding:22px; border-top:8px solid var(--accent,#4299E0); }
+.blue{--accent:#4299E0;} .green{--accent:#00A972;} .coral{--accent:#FF5F46;} .amber{--accent:#FFAB00;}
+.ds-card-label { font-size:14pt; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(--accent); margin-bottom:4px; }
+.ds-card-title { font-size:18pt; font-weight:700; line-height:1.25; margin:0 0 8px; }
+.ds-card-para { font-size:14pt; color:#0b2026; line-height:1.55; margin:0; }
+.h { font-size:20pt; font-weight:700; margin:0 0 4px; }
+.sub { font-size:14pt; color:#5A6F77; margin:0 0 6px; }
+</style>
+<div class="h">A member-services rep needs the right prior case &mdash; fast</div>
+<div class="sub">"Find past appeals like this one" is the everyday query. The narrative is free text; the codes are structured. Each search style alone leaves cases on the table.</div>
+<div class="ds-row">
+  <div class="ds-card coral">
+    <div class="ds-card-label">Keyword only</div>
+    <div class="ds-card-title">Misses paraphrases</div>
+    <div class="ds-card-para">A member wrote "couldn't get my breathing machine covered." A keyword search for <b>CPAP</b> never finds it. Same meaning, different words.</div>
+  </div>
+  <div class="ds-card blue">
+    <div class="ds-card-label">Vector only</div>
+    <div class="ds-card-title">Misses exact codes</div>
+    <div class="ds-card-para">Searching the denial code <b>CO-197</b> semantically returns noise &mdash; codes carry no meaning to embed. Exact tokens need keyword matching.</div>
+  </div>
+  <div class="ds-card green">
+    <div class="ds-card-label">Hybrid</div>
+    <div class="ds-card-title">Best of both</div>
+    <div class="ds-card-para">Reciprocal rank fusion blends semantic recall with exact-token precision &mdash; the member's language <i>and</i> the codes, in one ranked list.</div>
+  </div>
+</div>
+</div>
+</div></body></html>

@@ -244,6 +244,14 @@ print("renderers loaded: show(), show_hybrid()")
 
 # COMMAND ----------
 
+# ===========================================================================
+# NORMAL pgvector vector search. This is NOT a Lakebase Search feature, and it
+# runs BEFORE we enable Lakebase Search (the toggle gate is the next section).
+# The `<=>` cosine operator and the vector(1024) column are stock pgvector,
+# served by the plain HNSW index built during seeding. Any Postgres with the
+# `vector` extension does exactly this. Acts B and C are where Lakebase Search
+# adds capabilities pgvector alone does not have.
+# ===========================================================================
 # Natural-language query with NO overlapping keywords with the target cases.
 q = "a member with a serious autoimmune condition cannot get the medication they need"
 qv = embed_text(q)
@@ -314,6 +322,13 @@ print("Lakebase Search indexes built: lakebase_ann (vector) + lakebase_bm25 (key
 
 # COMMAND ----------
 
+# ===========================================================================
+# LAKEBASE SEARCH property (from the lakebase_text extension enabled by the
+# toggle above). Stock pgvector cannot do this: the `<@>` operator, the
+# to_bm25query(...) function, and the lakebase_bm25 index are all provided by
+# Lakebase Search. This is true BM25 relevance ranking, not ts_rank over a GIN
+# index, and it runs without the GIN-in-RAM memory footprint.
+# ===========================================================================
 # Exact keyword lookup: BM25 nails the literal token; the same word embedded is diffuse.
 term = "infusion"
 rows = run_sql(f"""
@@ -343,6 +358,17 @@ show(rows, concepts=[term, "biologic", "medication", "denied"], score_label="BM2
 
 # COMMAND ----------
 
+# ===========================================================================
+# HYBRID = normal pgvector + Lakebase Search, fused in ONE SQL query.
+#   vec CTE : the same stock pgvector `<=>` as Act A (once Search is on, this can
+#             be served by the lakebase_ann index, but the operator is identical).
+#   kw  CTE : the Lakebase Search BM25 `<@>` / to_bm25query from Act B.
+#   fusion  : reciprocal rank fusion in plain SQL, 1/(60 + rank) per list.
+# Running both retrievers and fusing them in a single query is possible only
+# because both extensions live in the same Postgres engine. That single-query
+# hybrid is the Lakebase Search property; pgvector alone gives you just the
+# vec CTE.
+# ===========================================================================
 # A real rep query: paraphrased need + an exact term. Hybrid catches both.
 q = "a member with a serious autoimmune condition cannot get the medication they need"
 kw = "infusion"

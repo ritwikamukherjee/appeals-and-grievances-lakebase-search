@@ -42,12 +42,12 @@
 # MAGIC   <div class="ds-card coral">
 # MAGIC     <div class="ds-card-label">Keyword only</div>
 # MAGIC     <div class="ds-card-title">Misses paraphrases</div>
-# MAGIC     <div class="ds-card-para">A member wrote "couldn't get my breathing machine covered." A keyword search for <b>CPAP</b> never finds it. Same meaning, different words.</div>
+# MAGIC     <div class="ds-card-para">A rep searches for the word <b>infusion</b>, but the matching case says "IV biologic." Same meaning, different words, so keyword search misses it.</div>
 # MAGIC   </div>
 # MAGIC   <div class="ds-card blue">
 # MAGIC     <div class="ds-card-label">Vector only</div>
-# MAGIC     <div class="ds-card-title">Misses exact codes</div>
-# MAGIC     <div class="ds-card-para">Searching the denial code <b>CO-197</b> semantically returns noise. Codes carry no meaning to embed, so exact tokens need keyword matching.</div>
+# MAGIC     <div class="ds-card-title">Misses exact terms</div>
+# MAGIC     <div class="ds-card-para">Semantic search blends everything with a similar meaning and does not lock onto the exact term the rep typed, so precise matches get diluted.</div>
 # MAGIC   </div>
 # MAGIC   <div class="ds-card green">
 # MAGIC     <div class="ds-card-label">Hybrid</div>
